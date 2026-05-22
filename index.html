@@ -3,93 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Employee Overtime Management</title>
 
 <style>
-    body{
-        font-family: Arial, sans-serif;
-        margin:0;
-        padding:0;
-        background:#f5f5f5;
-    }
 
-    header{
-        background:#1f4e79;
-        color:white;
-        padding:15px;
-        text-align:center;
-        font-size:24px;
-        font-weight:bold;
-    }
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background:#f5f5f5;
+}
 
-    .container{
-        width:90%;
-        max-width:1000px;
-        margin:auto;
-        margin-top:20px;
-    }
+header{
+    background:#1f4e79;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+}
 
-    .card{
-        background:white;
-        padding:20px;
-        border-radius:10px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.1);
-        margin-bottom:20px;
-    }
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:auto;
+    margin-top:20px;
+}
 
-    h2{
-        margin-top:0;
-        color:#1f4e79;
-    }
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
 
-    input, select, button{
-        width:100%;
-        padding:10px;
-        margin-top:10px;
-        margin-bottom:15px;
-        border:1px solid #ccc;
-        border-radius:5px;
-        font-size:16px;
-    }
+.tabs{
+    display:flex;
+    margin-bottom:20px;
+}
 
-    button{
-        background:#1f4e79;
-        color:white;
-        cursor:pointer;
-        border:none;
-    }
+.tab-button{
+    flex:1;
+    padding:15px;
+    border:none;
+    cursor:pointer;
+    background:#d9d9d9;
+    font-size:16px;
+    font-weight:bold;
+}
 
-    button:hover{
-        background:#163b5c;
-    }
+.tab-button.active{
+    background:#1f4e79;
+    color:white;
+}
 
-    table{
-        width:100%;
-        border-collapse:collapse;
-        margin-top:20px;
-    }
+.tab-content{
+    display:none;
+}
 
-    table th, table td{
-        border:1px solid #ccc;
-        padding:10px;
-        text-align:left;
-    }
+.tab-content.active{
+    display:block;
+}
 
-    table th{
-        background:#1f4e79;
-        color:white;
-    }
+input, select, button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+    box-sizing:border-box;
+}
 
-    .success{
-        color:green;
-        font-weight:bold;
-    }
+button{
+    background:#1f4e79;
+    color:white;
+    cursor:pointer;
+    border:none;
+}
 
-    .hidden{
-        display:none;
-    }
+button:hover{
+    background:#163b5c;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table th, table td{
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:left;
+}
+
+table th{
+    background:#1f4e79;
+    color:white;
+}
+
+.success{
+    color:green;
+    font-weight:bold;
+}
+
+.hidden{
+    display:none;
+}
+
+.duration-container{
+    display:flex;
+    gap:10px;
+}
 
 </style>
+
 </head>
 
 <body>
@@ -100,62 +131,76 @@
 
 <div class="container">
 
-    <!-- OVERTIME ENTRY -->
     <div class="card">
-        <h2>Overtime Entry</h2>
 
-        <input type="text" id="empName" placeholder="Employee Name">
+        <!-- TABS -->
+        <div class="tabs">
 
-        <input type="text" id="empCode" placeholder="Employee Code">
+            <button class="tab-button active"
+                onclick="openTab('entryTab', this)">
+                Overtime Entry
+            </button>
 
-        <input type="date" id="otDate">
+            <button class="tab-button"
+                onclick="openTab('displayTab', this)">
+                Overtime Display
+            </button>
 
-        <select id="duration">
-            <option value="">Select Duration</option>
-            <option value="1 Hour">1 Hour</option>
-            <option value="2 Hours">2 Hours</option>
-            <option value="3 Hours">3 Hours</option>
-            <option value="4 Hours">4 Hours</option>
-            <option value="5 Hours">5 Hours</option>
-            <option value="6 Hours">6 Hours</option>
-            <option value="7 Hours">7 Hours</option>
-            <option value="8 Hours">8 Hours</option>
-        </select>
+        </div>
 
-        <button onclick="addOvertime()">Add Overtime</button>
+        <!-- ENTRY TAB -->
+        <div id="entryTab" class="tab-content active">
 
-        <div id="entryMessage" class="success"></div>
+            <h2>Overtime Entry</h2>
 
-        <table id="entryTable">
-            <thead>
-                <tr>
-                    <th>Employee Name</th>
-                    <th>Employee Code</th>
-                    <th>Date</th>
-                    <th>Duration</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+            <input type="text"
+                id="empName"
+                placeholder="Employee Name">
 
-    <!-- PASSWORD SECTION -->
-    <div class="card">
-        <h2>Overtime Display</h2>
+            <input type="text"
+                id="empCode"
+                placeholder="Employee Code">
 
-        <input type="password" id="password" placeholder="Enter Password">
+            <input type="date"
+                id="otDate">
 
-        <button onclick="checkPassword()">Login</button>
+            <div class="duration-container">
 
-        <div id="displaySection" class="hidden">
+                <select id="hours">
+                    <option value="">Hours</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
 
-            <input type="date" id="fromDate">
+                <select id="minutes">
+                    <option value="">Minutes</option>
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
 
-            <input type="date" id="toDate">
+            </div>
 
-            <button onclick="loadData()">Display</button>
+            <button onclick="addOvertime()">
+                Add Overtime
+            </button>
 
-            <table id="displayTable">
+            <div id="entryMessage" class="success"></div>
+
+            <table id="entryTable">
+
                 <thead>
                     <tr>
                         <th>Employee Name</th>
@@ -164,12 +209,58 @@
                         <th>Duration</th>
                     </tr>
                 </thead>
+
                 <tbody></tbody>
+
             </table>
 
-            <button onclick="exportTableToExcel()">
-                Export to Excel
+        </div>
+
+        <!-- DISPLAY TAB -->
+        <div id="displayTab" class="tab-content">
+
+            <h2>Overtime Display</h2>
+
+            <input type="password"
+                id="password"
+                placeholder="Enter Password">
+
+            <button onclick="checkPassword()">
+                Login
             </button>
+
+            <div id="displaySection" class="hidden">
+
+                <input type="date"
+                    id="fromDate">
+
+                <input type="date"
+                    id="toDate">
+
+                <button onclick="loadData()">
+                    Display
+                </button>
+
+                <table id="displayTable">
+
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Employee Code</th>
+                            <th>Date</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+                <button onclick="exportTableToExcel()">
+                    Export to Excel
+                </button>
+
+            </div>
 
         </div>
 
@@ -179,24 +270,52 @@
 
 <script>
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvl5wKagxVhGOfORGMzMhorTjsBgb4FMVXDvNlonkKoa0XRG5b_eJH76v_HIUaqz2bGA/exec";
+const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEBAPP_URL_HERE";
 
 const DISPLAY_PASSWORD = "admin123";
+
+function openTab(tabId, element){
+
+    let tabs = document.getElementsByClassName("tab-content");
+
+    for(let i=0; i<tabs.length; i++){
+        tabs[i].classList.remove("active");
+    }
+
+    let buttons = document.getElementsByClassName("tab-button");
+
+    for(let i=0; i<buttons.length; i++){
+        buttons[i].classList.remove("active");
+    }
+
+    document.getElementById(tabId)
+        .classList.add("active");
+
+    element.classList.add("active");
+}
 
 function addOvertime(){
 
     let name = document.getElementById("empName").value;
     let code = document.getElementById("empCode").value;
     let date = document.getElementById("otDate").value;
-    let duration = document.getElementById("duration").value;
 
-    if(name==="" || code==="" || date==="" || duration===""){
+    let hours = document.getElementById("hours").value;
+    let minutes = document.getElementById("minutes").value;
+
+    let duration = hours + " Hr " + minutes + " Min";
+
+    if(name==="" || code==="" || date==="" ||
+        hours==="" || minutes===""){
+
         alert("Please fill all fields");
         return;
     }
 
     fetch(SCRIPT_URL,{
+
         method:"POST",
+
         body:JSON.stringify({
             action:"add",
             name:name,
@@ -204,8 +323,11 @@ function addOvertime(){
             date:date,
             duration:duration
         })
+
     })
+
     .then(res=>res.json())
+
     .then(data=>{
 
         document.getElementById("entryMessage").innerHTML =
@@ -227,7 +349,8 @@ function addOvertime(){
         document.getElementById("empName").value="";
         document.getElementById("empCode").value="";
         document.getElementById("otDate").value="";
-        document.getElementById("duration").value="";
+        document.getElementById("hours").value="";
+        document.getElementById("minutes").value="";
     });
 
 }
@@ -237,9 +360,12 @@ function checkPassword(){
     let pass = document.getElementById("password").value;
 
     if(pass === DISPLAY_PASSWORD){
+
         document.getElementById("displaySection")
             .classList.remove("hidden");
+
     }else{
+
         alert("Wrong Password");
     }
 }
@@ -250,7 +376,9 @@ function loadData(){
     let toDate = document.getElementById("toDate").value;
 
     fetch(`${SCRIPT_URL}?action=get&from=${fromDate}&to=${toDate}`)
+
     .then(res=>res.json())
+
     .then(data=>{
 
         data.sort((a,b)=>
