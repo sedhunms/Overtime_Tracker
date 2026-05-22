@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Enterprise Overtime Management System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Overtime Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,619 +13,551 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f0f4f9;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 24px 20px;
+            padding: 20px;
         }
 
-        /* main container */
-        .app-wrapper {
-            max-width: 1280px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* header */
-        .hero-header {
-            background: linear-gradient(105deg, #0B2B40 0%, #1A4A5F 100%);
-            border-radius: 32px;
-            padding: 24px 32px;
-            margin-bottom: 28px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .hero-header h1 {
-            color: white;
-            font-size: 1.9rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            word-break: break-word;
+        .header h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
         }
 
-        .hero-header p {
-            color: rgba(255,255,255,0.75);
-            font-size: 0.95rem;
-            margin-top: 6px;
+        .header p {
+            color: #666;
         }
 
-        /* card */
-        .glass-card {
+        .card {
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-            padding: 28px 30px;
-            transition: all 0.2s;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
 
-        /* tabs */
-        .tabs-modern {
+        .tabs {
             display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
-        .tab-btn {
-            flex: 1;
-            background: #EFF3F8;
+        .tab {
+            padding: 12px 24px;
+            background: none;
             border: none;
-            padding: 14px 12px;
-            border-radius: 44px;
+            font-size: 16px;
             font-weight: 600;
-            font-size: 1rem;
-            color: #2C4C6E;
             cursor: pointer;
-            transition: 0.25s;
-            font-family: inherit;
-            letter-spacing: -0.2px;
+            color: #666;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .tab-btn:hover {
-            background: #E2E9F2;
-            transform: translateY(-1px);
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
         }
 
-        .tab-btn.active {
-            background: #1A5D7A;
-            color: white;
-            box-shadow: 0 6px 14px rgba(26,93,122,0.25);
-        }
-
-        .tab-pane {
+        .tab-content {
             display: none;
-            animation: fadeSlide 0.35s ease forwards;
+            animation: fadeIn 0.5s;
         }
 
-        .tab-pane.active-pane {
+        .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 {
-            font-size: 1.65rem;
-            font-weight: 600;
-            color: #0B2B40;
+        .form-group {
             margin-bottom: 20px;
-            letter-spacing: -0.3px;
         }
 
-        .form-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1.5px solid #E2E8F0;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            font-family: inherit;
-            background: #FEFEFE;
-            transition: 0.2s;
-            margin-bottom: 18px;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #1A5D7A;
-            box-shadow: 0 0 0 3px rgba(26,93,122,0.15);
-            background: white;
-        }
-
-        .dual-select {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .dual-select select {
-            flex: 1;
-        }
-
-        .btn-primary {
-            background: linear-gradient(95deg, #1A5D7A, #0E3E52);
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 44px;
-            font-weight: 600;
-            font-size: 1rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 24px;
-            font-family: inherit;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 22px -8px rgba(26,93,122,0.4);
-        }
-
-        .success-msg {
-            background: #E2F6E9;
-            color: #11734C;
-            padding: 12px 16px;
-            border-radius: 20px;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
             font-weight: 500;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .hidden-panel {
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .duration-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 20px;
             display: none;
         }
 
-        .visible-panel {
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
             display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
         }
 
-        /* table responsive */
-        .table-container {
-            overflow-x: auto;
-            border-radius: 24px;
-            margin: 20px 0;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-        }
-
-        .data-table th {
-            background: #1F4E6E;
-            color: white;
-            padding: 14px 16px;
-            font-weight: 600;
-            font-size: 0.85rem;
+        th, td {
+            padding: 12px;
             text-align: left;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .data-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #ECF1F5;
-            color: #1F2A3E;
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
         }
 
-        .data-table tr:hover td {
-            background: #F8FBFE;
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .password-section {
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
         }
 
         .export-btn {
-            background: #2C6E49;
-            margin-top: 8px;
-            margin-bottom: 0;
-            box-shadow: none;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            margin-top: 20px;
         }
 
-        .export-btn:hover {
-            background: #1F5A3A;
-            transform: translateY(-2px);
-        }
-
-        .date-range {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .date-range input {
-            flex: 1;
-        }
-
-        .password-container {
-            max-width: 380px;
-            margin-bottom: 12px;
-        }
-
-        hr {
-            margin: 18px 0;
-            border-color: #E9EDF2;
-        }
-
-        @media (max-width: 680px) {
-            body {
-                padding: 12px;
+        @media (max-width: 768px) {
+            .duration-group {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
-            .glass-card {
-                padding: 20px 18px;
-            }
-            .dual-select {
+            
+            .tabs {
                 flex-direction: column;
-                gap: 0;
+                gap: 10px;
             }
-            .hero-header h1 {
-                font-size: 1.5rem;
+            
+            .tab {
+                width: 100%;
+                text-align: center;
             }
-            .tab-btn {
-                font-size: 0.85rem;
-                padding: 12px;
+            
+            th, td {
+                padding: 8px;
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
-<div class="app-wrapper">
-    <div class="hero-header">
-        <h1>⏱️ Overtime Tracker</h1>
-        <p>Secure timesheet | Authenticated access | Excel export</p>
-    </div>
-    <div class="glass-card">
-        <div class="tabs-modern">
-            <button class="tab-btn active" data-tab="entry">📝 Overtime Entry</button>
-            <button class="tab-btn" data-tab="display">📊 Reports & Display</button>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Employee Overtime Management System</h1>
+            <p>Track and manage employee overtime efficiently</p>
         </div>
 
-        <!-- ENTRY TAB -->
-        <div id="entryPane" class="tab-pane active-pane">
-            <h2>✍️ Register Overtime</h2>
-            <div class="form-grid">
-                <input type="text" id="empName" class="input-field" placeholder="Full employee name *" autocomplete="off">
-                <input type="text" id="empCode" class="input-field" placeholder="Employee ID / Code *" autocomplete="off">
-                <input type="date" id="otDate" class="input-field">
-                <div class="dual-select">
-                    <select id="hours">
-                        <option value="">Hours</option>
-                        <option value="0">0</option><option value="1">1</option><option value="2">2</option>
-                        <option value="3">3</option><option value="4">4</option><option value="5">5</option>
-                        <option value="6">6</option><option value="7">7</option><option value="8">8</option>
-                        <option value="9">9</option><option value="10">10</option><option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                    <select id="minutes">
-                        <option value="">Minutes</option>
-                        <option value="00">00</option><option value="15">15</option>
-                        <option value="30">30</option><option value="45">45</option>
-                    </select>
-                </div>
-                <button class="btn-primary" id="submitOvertimeBtn">➕ Add Overtime Record</button>
-                <div id="entryMessageArea"></div>
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('entry')">📝 Overtime Entry</button>
+                <button class="tab" onclick="switchTab('display')">📊 View Reports</button>
             </div>
 
-            <div class="table-container">
-                <table class="data-table" id="livePreviewTable">
-                    <thead>
-                        <tr><th>Employee</th><th>Code</th><th>Date</th><th>Duration</th></tr>
-                    </thead>
-                    <tbody id="previewTableBody">
-                        <tr><td colspan="4" style="text-align:center;">No records added yet</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <small style="color:#4A627A;">📌 Data is saved to Google Sheet instantly. Use same sheet for reporting.</small>
-        </div>
-
-        <!-- DISPLAY TAB (authenticated) -->
-        <div id="displayPane" class="tab-pane">
-            <h2>🔐 Secure Overtime Dashboard</h2>
-            <div class="password-container">
-                <input type="password" id="accessPassword" class="input-field" placeholder="Enter master password">
-                <button class="btn-primary" id="unlockBtn" style="margin-bottom: 12px;">🔓 Unlock Reports</button>
-            </div>
-            <div id="securedReportSection" class="hidden-panel">
-                <div class="date-range">
-                    <input type="date" id="fromDateFilter" class="input-field">
-                    <input type="date" id="toDateFilter" class="input-field">
-                </div>
-                <button class="btn-primary" id="loadReportBtn">📅 Load Overtime Records</button>
-                <div class="table-container">
-                    <table class="data-table" id="reportTable">
-                        <thead><tr><th>Employee Name</th><th>Employee Code</th><th>Date</th><th>Duration</th></tr></thead>
-                        <tbody id="reportTableBody"><tr><td colspan="4">🔒 Unlock to view data</td></tr></tbody>
+            <!-- Overtime Entry Tab -->
+            <div id="entryTab" class="tab-content active">
+                <h2>Enter Overtime Details</h2>
+                <form id="overtimeForm">
+                    <div class="form-group">
+                        <label>Employee Name *</label>
+                        <input type="text" id="empName" placeholder="Enter employee name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Employee Code *</label>
+                        <input type="text" id="empCode" placeholder="Enter employee code" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Overtime Date *</label>
+                        <input type="date" id="otDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Overtime Duration *</label>
+                        <div class="duration-group">
+                            <select id="hours" required>
+                                <option value="">Hours</option>
+                                <option value="0">0 Hour</option>
+                                <option value="1">1 Hour</option>
+                                <option value="2">2 Hours</option>
+                                <option value="3">3 Hours</option>
+                                <option value="4">4 Hours</option>
+                                <option value="5">5 Hours</option>
+                                <option value="6">6 Hours</option>
+                                <option value="7">7 Hours</option>
+                                <option value="8">8 Hours</option>
+                                <option value="9">9 Hours</option>
+                                <option value="10">10 Hours</option>
+                                <option value="11">11 Hours</option>
+                                <option value="12">12 Hours</option>
+                            </select>
+                            
+                            <select id="minutes" required>
+                                <option value="">Minutes</option>
+                                <option value="00">00 Min</option>
+                                <option value="15">15 Min</option>
+                                <option value="30">30 Min</option>
+                                <option value="45">45 Min</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="button" onclick="addOvertime()">➕ Add Overtime Record</button>
+                </form>
+                <div id="entryMessage" class="message"></div>
+                
+                <h3 style="margin-top: 30px;">Recent Entries Preview</h3>
+                <div style="overflow-x: auto;">
+                    <table id="previewTable">
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Employee Code</th>
+                                <th>Date</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody id="previewBody">
+                            <tr><td colspan="4" style="text-align: center;">No records added yet</td></tr>
+                        </tbody>
                     </table>
                 </div>
-                <button class="btn-primary export-btn" id="exportExcelBtn">📎 Export to Excel (XLS)</button>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="displayTab" class="tab-content">
+                <h2>View Overtime Reports</h2>
+                <div class="password-section">
+                    <label>Authentication Required</label>
+                    <input type="password" id="password" placeholder="Enter admin password">
+                    <button onclick="authenticate()" style="margin-top: 10px;">🔐 Unlock Reports</button>
+                </div>
+                
+                <div id="reportSection" class="hidden">
+                    <div class="form-group">
+                        <label>Date Range</label>
+                        <div class="duration-group">
+                            <input type="date" id="fromDate" placeholder="From Date">
+                            <input type="date" id="toDate" placeholder="To Date">
+                        </div>
+                    </div>
+                    <button onclick="loadReports()">📅 Load Reports</button>
+                    
+                    <div style="overflow-x: auto;">
+                        <table id="reportTable">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th>Employee Code</th>
+                                    <th>Date</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportBody">
+                                <tr><td colspan="4" style="text-align: center;">Please authenticate to view reports</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <button class="export-btn" onclick="exportToExcel()">📎 Export to Excel</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // *********************************************
-    // CORRECT APPS SCRIPT URL - PASTE YOUR DEPLOYED WEB APP URL BELOW
-    // IMPORTANT: Replace this URL with your own Apps Script Web App URL (doPost + doGet)
-    // After deploying as Web App (Execute as "Me", Access "Anyone"), copy the URL.
-    // *********************************************
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzRJqyDr9sr3Bd_pTJu7Cm7lZk8vJcWU6tKh6cCsuO8jz8We0_BV0hPTAmiPj4P9KPo/exec";  // <--- PASTE YOUR VALID WEB APP URL HERE
-    
-    // Master password for display section (same as before)
-    const MASTER_PASSWORD = "admin123";
-    
-    // Global variable to store fetched records for export
-    let currentReportData = [];
-
-    // ------------------- TAB SWITCHING --------------------
-    function switchTab(tabId) {
-        const panes = document.querySelectorAll('.tab-pane');
-        panes.forEach(pane => pane.classList.remove('active-pane'));
-        const btns = document.querySelectorAll('.tab-btn');
-        btns.forEach(btn => btn.classList.remove('active'));
+    <script>
+        // ⚠️ IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+        const SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE"; // <-- PASTE YOUR URL HERE
         
-        if (tabId === 'entry') {
-            document.getElementById('entryPane').classList.add('active-pane');
-            document.querySelector('.tab-btn[data-tab="entry"]').classList.add('active');
-        } else {
-            document.getElementById('displayPane').classList.add('active-pane');
-            document.querySelector('.tab-btn[data-tab="display"]').classList.add('active');
-        }
-    }
-    
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const tab = btn.getAttribute('data-tab');
-            switchTab(tab);
-        });
-    });
-    
-    // ------------------- HELPER: PREVIEW LOCAL (entry table) -----------------
-    function updateLocalPreview(record) {
-        const previewBody = document.getElementById('previewTableBody');
-        if (previewBody.querySelector('td[colspan="4"]') && previewBody.children.length === 1) {
-            previewBody.innerHTML = '';
-        }
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td>${escapeHtml(record.name)}</td>
-            <td>${escapeHtml(record.code)}</td>
-            <td>${record.date}</td>
-            <td>${record.duration}</td>
-        `;
-        previewBody.appendChild(newRow);
-        // keep last 5? optional, but fine
-        if (previewBody.children.length > 15) {
-            previewBody.removeChild(previewBody.children[0]);
-        }
-    }
-    
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-    
-    // ------------------- ADD OVERTIME (POST) -----------------
-    async function addOvertimeRecord() {
-        const name = document.getElementById('empName').value.trim();
-        const code = document.getElementById('empCode').value.trim();
-        const date = document.getElementById('otDate').value;
-        const hours = document.getElementById('hours').value;
-        const minutes = document.getElementById('minutes').value;
+        const ADMIN_PASSWORD = "admin123";
+        let recentEntries = [];
         
-        if (!name || !code || !date || !hours || !minutes) {
-            alert('❌ Please fill all fields: Name, Code, Date, Hours & Minutes');
-            return;
+        // Set today's date as default
+        document.getElementById('otDate').valueAsDate = new Date();
+        
+        function switchTab(tabName) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            if (tabName === 'entry') {
+                document.getElementById('entryTab').classList.add('active');
+            } else {
+                document.getElementById('displayTab').classList.add('active');
+            }
         }
         
-        let durationText = `${hours} Hr ${minutes} Min`;
+        async function addOvertime() {
+            const name = document.getElementById('empName').value.trim();
+            const code = document.getElementById('empCode').value.trim();
+            const date = document.getElementById('otDate').value;
+            const hours = document.getElementById('hours').value;
+            const minutes = document.getElementById('minutes').value;
+            
+            if (!name || !code || !date || !hours || !minutes) {
+                showMessage('entryMessage', 'Please fill all required fields', 'error');
+                return;
+            }
+            
+            const duration = `${hours} Hr ${minutes} Min`;
+            
+            // Show loading state
+            const submitBtn = event.target;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Saving...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        code: code,
+                        date: date,
+                        duration: duration
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showMessage('entryMessage', '✅ Overtime added successfully!', 'success');
+                    
+                    // Add to preview table
+                    addToPreview(name, code, date, duration);
+                    
+                    // Clear form
+                    document.getElementById('empName').value = '';
+                    document.getElementById('empCode').value = '';
+                    document.getElementById('hours').value = '';
+                    document.getElementById('minutes').value = '';
+                    document.getElementById('otDate').valueAsDate = new Date();
+                } else {
+                    showMessage('entryMessage', 'Error: ' + (result.message || 'Unknown error'), 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                let errorMsg = 'Network error: Cannot reach server. ';
+                if (SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+                    errorMsg += 'Please configure the SCRIPT_URL with your Google Apps Script URL.';
+                } else {
+                    errorMsg += 'Check your Apps Script deployment and ensure it\'s published as a Web App with "Anyone" access.';
+                }
+                showMessage('entryMessage', errorMsg, 'error');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
         
-        const payload = {
-            action: "add",
-            name: name,
-            code: code,
-            date: date,
-            duration: durationText
-        };
+        function addToPreview(name, code, date, duration) {
+            const previewBody = document.getElementById('previewBody');
+            
+            // Clear "no records" message if present
+            if (previewBody.children.length === 1 && previewBody.children[0].innerHTML.includes('No records')) {
+                previewBody.innerHTML = '';
+            }
+            
+            const row = previewBody.insertRow(0);
+            row.insertCell(0).textContent = name;
+            row.insertCell(1).textContent = code;
+            row.insertCell(2).textContent = date;
+            row.insertCell(3).textContent = duration;
+            
+            // Keep only last 10 entries in preview
+            while (previewBody.children.length > 10) {
+                previewBody.removeChild(previewBody.lastChild);
+            }
+        }
         
-        try {
-            const response = await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+        function authenticate() {
+            const password = document.getElementById('password').value;
+            const reportSection = document.getElementById('reportSection');
+            
+            if (password === ADMIN_PASSWORD) {
+                reportSection.classList.remove('hidden');
+                showMessage('entryMessage', 'Authentication successful!', 'success');
+                document.getElementById('reportBody').innerHTML = '<tr><td colspan="4" style="text-align: center;">Select date range and click "Load Reports"</td></tr>';
+            } else {
+                alert('Invalid password! Access denied.');
+                reportSection.classList.add('hidden');
+            }
+        }
+        
+        async function loadReports() {
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+            
+            if (!fromDate || !toDate) {
+                alert('Please select both From and To dates');
+                return;
+            }
+            
+            const reportBody = document.getElementById('reportBody');
+            reportBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Loading...</td></tr>';
+            
+            try {
+                const url = `${SCRIPT_URL}?from=${fromDate}&to=${toDate}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.status === 'error') {
+                    reportBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: red;">Error: ${data.message}</td></tr>`;
+                    return;
+                }
+                
+                if (!Array.isArray(data) || data.length === 0) {
+                    reportBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No records found for selected date range</td></tr>';
+                    return;
+                }
+                
+                // Display records
+                reportBody.innerHTML = '';
+                data.forEach(record => {
+                    const row = reportBody.insertRow();
+                    row.insertCell(0).textContent = record.name || '-';
+                    row.insertCell(1).textContent = record.code || '-';
+                    row.insertCell(2).textContent = record.date || '-';
+                    row.insertCell(3).textContent = record.duration || '-';
+                });
+                
+                // Store for export
+                window.currentReportData = data;
+                
+            } catch (error) {
+                console.error('Error loading reports:', error);
+                reportBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: red;">Network error loading reports. Check Apps Script URL and deployment.</td></tr>';
+            }
+        }
+        
+        function exportToExcel() {
+            if (!window.currentReportData || window.currentReportData.length === 0) {
+                alert('No data to export. Please load reports first.');
+                return;
+            }
+            
+            let csv = "Employee Name,Employee Code,Date,Duration\n";
+            window.currentReportData.forEach(record => {
+                csv += `"${record.name}","${record.code}","${record.date}","${record.duration}"\n`;
             });
             
-            const result = await response.json();
-            
-            if (result.status === "success") {
-                // success message
-                const msgDiv = document.getElementById('entryMessageArea');
-                msgDiv.innerHTML = `<div class="success-msg">✅ Overtime added successfully! Record stored in Google Sheet.</div>`;
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute('download', `overtime_report_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+        
+        function showMessage(elementId, message, type) {
+            const msgDiv = document.getElementById(elementId);
+            msgDiv.textContent = message;
+            msgDiv.className = `message ${type}`;
+            setTimeout(() => {
+                msgDiv.style.display = 'none';
                 setTimeout(() => {
-                    if (msgDiv.firstChild) msgDiv.innerHTML = '';
-                }, 2800);
-                
-                // update local preview table
-                updateLocalPreview({ name, code, date, duration: durationText });
-                
-                // clear form fields
-                document.getElementById('empName').value = '';
-                document.getElementById('empCode').value = '';
-                document.getElementById('otDate').value = '';
-                document.getElementById('hours').value = '';
-                document.getElementById('minutes').value = '';
-            } else {
-                alert('Server error: ' + (result.message || 'Unknown error'));
-            }
-        } catch (err) {
-            console.error(err);
-            alert('❌ Network error: Cannot reach Google Apps Script. Check CORS or URL validity.\n' + err.message);
+                    msgDiv.className = 'message';
+                    msgDiv.style.display = '';
+                }, 100);
+            }, 3000);
         }
-    }
-    
-    // ------------------- LOAD DATA (GET with date range) -----------------
-    async function fetchOvertimeData(fromDate, toDate) {
-        if (!fromDate || !toDate) {
-            alert('Please select both FROM and TO dates');
-            return null;
+        
+        // Check if URL is configured
+        if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwiBxyuhZTU0aB4DS7885vyvo7axTfzVkcUMPM-Qs7ynvZ-vo85tJlPFu9DCILcVmRaCA/exec) {
+            console.warn('⚠️ Please configure the SCRIPT_URL with your Google Apps Script Web App URL');
+            const warning = document.createElement('div');
+            warning.style.cssText = 'background: #fff3cd; color: #856404; padding: 12px; border-radius: 10px; margin-bottom: 20px; text-align: center;';
+            warning.innerHTML = '⚠️ <strong>Setup Required:</strong> Please replace "YOUR_APPS_SCRIPT_URL_HERE" with your Google Apps Script Web App URL. See instructions in the HTML comments.';
+            document.querySelector('.card').insertBefore(warning, document.querySelector('.card').firstChild);
         }
-        const url = `${SCRIPT_URL}?from=${encodeURIComponent(fromDate)}&to=${encodeURIComponent(toDate)}`;
-        try {
-            const resp = await fetch(url);
-            const data = await resp.json();
-            // if error object from server
-            if (data.status === "error") {
-                alert("Backend error: " + data.message);
-                return [];
-            }
-            // data is an array of records
-            if (Array.isArray(data)) {
-                // sort by name as requested
-                data.sort((a,b) => (a.name || '').localeCompare(b.name || ''));
-                return data;
-            } else {
-                console.warn("unexpected response", data);
-                return [];
-            }
-        } catch (err) {
-            console.error(err);
-            alert('Failed to load data from server. Please verify Apps Script URL and deployment.');
-            return [];
-        }
-    }
-    
-    // display in report table
-    function renderReportTable(records) {
-        const tbody = document.getElementById('reportTableBody');
-        tbody.innerHTML = '';
-        if (!records || records.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4">📭 No overtime records found in selected date range</td></tr>';
-            currentReportData = [];
-            return;
-        }
-        currentReportData = records.slice(); // store for export
-        records.forEach(rec => {
-            const row = tbody.insertRow();
-            row.insertCell(0).textContent = rec.name || '-';
-            row.insertCell(1).textContent = rec.code || '-';
-            row.insertCell(2).textContent = rec.date || '-';
-            row.insertCell(3).textContent = rec.duration || '-';
-        });
-    }
-    
-    async function onLoadReport() {
-        const fromDate = document.getElementById('fromDateFilter').value;
-        const toDate = document.getElementById('toDateFilter').value;
-        if (!fromDate || !toDate) {
-            alert('📅 Please select both start date and end date');
-            return;
-        }
-        const records = await fetchOvertimeData(fromDate, toDate);
-        renderReportTable(records);
-    }
-    
-    // password unlock
-    function unlockReports() {
-        const passwordInput = document.getElementById('accessPassword').value;
-        const section = document.getElementById('securedReportSection');
-        if (passwordInput === MASTER_PASSWORD) {
-            section.classList.remove('hidden-panel');
-            section.classList.add('visible-panel');
-            // optional auto load of empty state
-            document.getElementById('reportTableBody').innerHTML = '<tr><td colspan="4">✅ Unlocked! Select date range and click "Load Overtime Records"</td></tr>';
-        } else {
-            alert('⛔ Invalid password. Access denied.');
-            section.classList.add('hidden-panel');
-            section.classList.remove('visible-panel');
-        }
-    }
-    
-    // export to excel (standard method using Blob)
-    function exportToExcel() {
-        if (!currentReportData || currentReportData.length === 0) {
-            alert('No data to export. Please load a report first.');
-            return;
-        }
-        // create worksheet manually
-        let csvRows = [];
-        // headers
-        csvRows.push(['Employee Name', 'Employee Code', 'Date', 'Duration']);
-        // add rows
-        for (let row of currentReportData) {
-            csvRows.push([
-                row.name || '',
-                row.code || '',
-                row.date || '',
-                row.duration || ''
-            ]);
-        }
-        const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-        const blob = new Blob(["\uFEFF" + csvContent], { type: "application/vnd.ms-excel;charset=utf-8" });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.href = url;
-        link.download = `Overtime_Report_${new Date().toISOString().slice(0,19)}.xls`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    }
-    
-    // ------------------- EVENT LISTENERS -----------------
-    document.getElementById('submitOvertimeBtn').addEventListener('click', addOvertimeRecord);
-    document.getElementById('unlockBtn').addEventListener('click', unlockReports);
-    document.getElementById('loadReportBtn').addEventListener('click', onLoadReport);
-    document.getElementById('exportExcelBtn').addEventListener('click', exportToExcel);
-    
-    // optional: clear message on input change
-    document.querySelectorAll('#empName, #empCode, #otDate, #hours, #minutes').forEach(field => {
-        field.addEventListener('input', () => {
-            const msgDiv = document.getElementById('entryMessageArea');
-            if (msgDiv.innerHTML) msgDiv.innerHTML = '';
-        });
-    });
-    
-    // set default date for convenience (today)
-    const today = new Date().toISOString().split('T')[0];
-    if(document.getElementById('otDate')) document.getElementById('otDate').value = today;
-    // small demo: show message about URL configuration
-    if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbwiBxyuhZTU0aB4DS7885vyvo7axTfzVkcUMPM-Qs7ynvZ-vo85tJlPFu9DCILcVmRaCA/exec" || SCRIPT_URL === "") {
-        console.warn("⚠️ Please replace SCRIPT_URL with your actual Google Apps Script Web App URL");
-        const warningDiv = document.createElement('div');
-        warningDiv.style.backgroundColor = "#FFECCC";
-        warningDiv.style.padding = "12px";
-        warningDiv.style.borderRadius = "20px";
-        warningDiv.style.marginBottom = "20px";
-        warningDiv.style.fontSize = "13px";
-        warningDiv.innerHTML = "⚠️ <strong>Setup required:</strong> Replace const SCRIPT_URL with your Apps Script Web App URL (doPost/doGet).<br>See instructions inside HTML.";
-        const entryPane = document.getElementById('entryPane');
-        if(entryPane) entryPane.prepend(warningDiv);
-    }
-</script>
-
-
+    </script>
 </body>
 </html>
