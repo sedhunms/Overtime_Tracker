@@ -1,122 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Employee Overtime Management</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 
-body{
-    font-family: Arial, sans-serif;
+*{
     margin:0;
     padding:0;
-    background:#f5f5f5;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:linear-gradient(135deg,#dfe9f3,#ffffff);
+    min-height:100vh;
+    padding:30px;
 }
 
 header{
-    background:#1f4e79;
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    background:linear-gradient(135deg,#1f4e79,#163b5c);
     color:white;
-    padding:15px;
+    padding:25px;
     text-align:center;
-    font-size:24px;
-    font-weight:bold;
+    border-radius:18px;
+    font-size:30px;
+    font-weight:600;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    letter-spacing:1px;
 }
 
 .container{
-    width:90%;
-    max-width:1000px;
+    width:100%;
+    max-width:1100px;
     margin:auto;
-    margin-top:20px;
+    margin-top:25px;
 }
 
 .card{
     background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
 .tabs{
     display:flex;
-    margin-bottom:20px;
+    gap:15px;
+    margin-bottom:30px;
 }
 
 .tab-button{
     flex:1;
-    padding:15px;
+    padding:16px;
     border:none;
-    cursor:pointer;
-    background:#d9d9d9;
+    border-radius:12px;
+    background:#e4eaf1;
+    color:#1f4e79;
     font-size:16px;
-    font-weight:bold;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.tab-button:hover{
+    transform:translateY(-2px);
 }
 
 .tab-button.active{
-    background:#1f4e79;
+    background:linear-gradient(135deg,#1f4e79,#163b5c);
     color:white;
+    box-shadow:0 6px 15px rgba(31,78,121,0.3);
 }
 
 .tab-content{
     display:none;
+    animation:fadeIn 0.4s ease;
 }
 
 .tab-content.active{
     display:block;
 }
 
-input, select, button{
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h2{
+    color:#1f4e79;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+input, select{
     width:100%;
-    padding:10px;
-    margin-top:10px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:5px;
-    font-size:16px;
-    box-sizing:border-box;
+    padding:14px;
+    border:1px solid #d0d7de;
+    border-radius:12px;
+    font-size:15px;
+    margin-bottom:18px;
+    transition:0.3s;
+    background:#fafafa;
+}
+
+input:focus, select:focus{
+    outline:none;
+    border-color:#1f4e79;
+    background:white;
+    box-shadow:0 0 0 3px rgba(31,78,121,0.1);
+}
+
+.duration-container{
+    display:flex;
+    gap:15px;
 }
 
 button{
-    background:#1f4e79;
-    color:white;
-    cursor:pointer;
+    width:100%;
+    padding:14px;
     border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#1f4e79,#163b5c);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    margin-bottom:15px;
 }
 
 button:hover{
-    background:#163b5c;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
-
-table th, table td{
-    border:1px solid #ccc;
-    padding:10px;
-    text-align:left;
-}
-
-table th{
-    background:#1f4e79;
-    color:white;
+    transform:translateY(-2px);
+    box-shadow:0 6px 15px rgba(31,78,121,0.25);
 }
 
 .success{
-    color:green;
-    font-weight:bold;
+    background:#e7f8ee;
+    color:#1b8f4d;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
+    font-weight:500;
 }
 
 .hidden{
     display:none;
 }
 
-.duration-container{
-    display:flex;
-    gap:10px;
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    overflow:hidden;
+    border-radius:15px;
+    background:white;
+}
+
+table thead{
+    background:linear-gradient(135deg,#1f4e79,#163b5c);
+    color:white;
+}
+
+table th{
+    padding:15px;
+    text-align:left;
+    font-weight:600;
+}
+
+table td{
+    padding:14px;
+    border-bottom:1px solid #e6e6e6;
+}
+
+table tbody tr{
+    transition:0.3s;
+    background:white;
+}
+
+table tbody tr:hover{
+    background:#f4f8fb;
+}
+
+.export-btn{
+    margin-top:20px;
+    background:linear-gradient(135deg,#2e8b57,#1d6d43);
+}
+
+.export-btn:hover{
+    box-shadow:0 6px 15px rgba(46,139,87,0.25);
+}
+
+/* MOBILE FRIENDLY */
+
+@media screen and (max-width:768px){
+
+    body{
+        padding:10px;
+    }
+
+    header{
+        font-size:22px;
+        padding:18px;
+        border-radius:14px;
+    }
+
+    .card{
+        padding:15px;
+        border-radius:15px;
+    }
+
+    .tabs{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .tab-button{
+        width:100%;
+        font-size:15px;
+        padding:14px;
+    }
+
+    .duration-container{
+        flex-direction:column;
+        gap:0;
+    }
+
+    input,
+    select,
+    button{
+        font-size:16px;
+        padding:14px;
+    }
+
+    h2{
+        font-size:20px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+        border-radius:12px;
+    }
+
+    table th,
+    table td{
+        font-size:14px;
+        padding:12px;
+    }
+
+    .success{
+        font-size:14px;
+        padding:10px;
+    }
+
+    .export-btn{
+        font-size:15px;
+    }
 }
 
 </style>
@@ -131,188 +288,202 @@ table th{
 
 <div class="container">
 
-    <div class="card">
+<div class="card">
 
-        <!-- TABS -->
-        <div class="tabs">
+<div class="tabs">
 
-            <button class="tab-button active"
-                onclick="openTab('entryTab', this)">
-                Overtime Entry
-            </button>
+<button class="tab-button active"
+onclick="openTab('entryTab', this)">
+Overtime Entry
+</button>
 
-            <button class="tab-button"
-                onclick="openTab('displayTab', this)">
-                Overtime Display
-            </button>
+<button class="tab-button"
+onclick="openTab('displayTab', this)">
+Overtime Display
+</button>
 
-        </div>
+</div>
 
-        <!-- ENTRY TAB -->
-        <div id="entryTab" class="tab-content active">
+<!-- ENTRY TAB -->
 
-            <h2>Overtime Entry</h2>
+<div id="entryTab" class="tab-content active">
 
-            <input type="text"
-                id="empName"
-                placeholder="Employee Name">
+<h2>Overtime Entry</h2>
 
-            <input type="text"
-                id="empCode"
-                placeholder="Employee Code">
+<input type="text"
+id="empName"
+placeholder="Employee Name">
 
-            <input type="date"
-                id="otDate">
+<input type="text"
+id="empCode"
+placeholder="Employee Code">
 
-            <div class="duration-container">
+<input type="date"
+id="otDate">
 
-                <select id="hours">
-                    <option value="">Hours</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
+<div class="duration-container">
 
-                <select id="minutes">
-                    <option value="">Minutes</option>
-                    <option value="00">00</option>
-                    <option value="15">15</option>
-                    <option value="30">30</option>
-                    <option value="45">45</option>
-                </select>
+<select id="hours">
+<option value="">Hours</option>
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+</select>
 
-            </div>
+<select id="minutes">
+<option value="">Minutes</option>
+<option value="00">00</option>
+<option value="15">15</option>
+<option value="30">30</option>
+<option value="45">45</option>
+</select>
 
-            <button onclick="addOvertime()">
-                Add Overtime
-            </button>
+</div>
 
-            <div id="entryMessage" class="success"></div>
+<button onclick="addOvertime()">
+Add Overtime
+</button>
 
-            <table id="entryTable">
+<div id="entryMessage"></div>
 
-                <thead>
-                    <tr>
-                        <th>Employee Name</th>
-                        <th>Employee Code</th>
-                        <th>Date</th>
-                        <th>Duration</th>
-                    </tr>
-                </thead>
+<table id="entryTable">
 
-                <tbody></tbody>
+<thead>
+<tr>
+<th>Employee Name</th>
+<th>Employee Code</th>
+<th>Date</th>
+<th>Duration</th>
+</tr>
+</thead>
 
-            </table>
+<tbody></tbody>
 
-        </div>
+</table>
 
-        <!-- DISPLAY TAB -->
-        <div id="displayTab" class="tab-content">
+</div>
 
-            <h2>Overtime Display</h2>
+<!-- DISPLAY TAB -->
 
-            <input type="password"
-                id="password"
-                placeholder="Enter Password">
+<div id="displayTab" class="tab-content">
 
-            <button onclick="checkPassword()">
-                Login
-            </button>
+<h2>Overtime Display</h2>
 
-            <div id="displaySection" class="hidden">
+<input type="password"
+id="password"
+placeholder="Enter Password">
 
-                <input type="date"
-                    id="fromDate">
+<button onclick="checkPassword()">
+Login
+</button>
 
-                <input type="date"
-                    id="toDate">
+<div id="displaySection" class="hidden">
 
-                <button onclick="loadData()">
-                    Display
-                </button>
+<input type="date"
+id="fromDate">
 
-                <table id="displayTable">
+<input type="date"
+id="toDate">
 
-                    <thead>
-                        <tr>
-                            <th>Employee Name</th>
-                            <th>Employee Code</th>
-                            <th>Date</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
+<button onclick="loadData()">
+Display
+</button>
 
-                    <tbody></tbody>
+<table id="displayTable">
 
-                </table>
+<thead>
+<tr>
+<th>Employee Name</th>
+<th>Employee Code</th>
+<th>Date</th>
+<th>Duration</th>
+</tr>
+</thead>
 
-                <button onclick="exportTableToExcel()">
-                    Export to Excel
-                </button>
+<tbody></tbody>
 
-            </div>
+</table>
 
-        </div>
+<button class="export-btn"
+onclick="exportTableToExcel()">
+Export to Excel
+</button>
 
-    </div>
+</div>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvl5wKagxVhGOfORGMzMhorTjsBgb4FMVXDvNlonkKoa0XRG5b_eJH76v_HIUaqz2bGA/exec";
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbztdYCBLM7AXU6VPm3GRKgYa0IwJclWeXBBsm45-1Qn8zPOhb2O-0Iy5GnAzc6vqwrb1A/exec;
 
 const DISPLAY_PASSWORD = "admin123";
 
 function openTab(tabId, element){
 
-    let tabs = document.getElementsByClassName("tab-content");
+    let tabs =
+    document.getElementsByClassName("tab-content");
 
     for(let i=0; i<tabs.length; i++){
         tabs[i].classList.remove("active");
     }
 
-    let buttons = document.getElementsByClassName("tab-button");
+    let buttons =
+    document.getElementsByClassName("tab-button");
 
     for(let i=0; i<buttons.length; i++){
         buttons[i].classList.remove("active");
     }
 
     document.getElementById(tabId)
-        .classList.add("active");
+    .classList.add("active");
 
     element.classList.add("active");
 }
 
 function addOvertime(){
 
-    let name = document.getElementById("empName").value;
-    let code = document.getElementById("empCode").value;
-    let date = document.getElementById("otDate").value;
+    let name =
+    document.getElementById("empName").value.trim();
 
-    let hours = document.getElementById("hours").value;
-    let minutes = document.getElementById("minutes").value;
+    let code =
+    document.getElementById("empCode").value.trim();
 
-    let duration = hours + " Hr " + minutes + " Min";
+    let date =
+    document.getElementById("otDate").value;
 
-    if(name==="" || code==="" || date==="" ||
-        hours==="" || minutes===""){
+    let hours =
+    document.getElementById("hours").value;
+
+    let minutes =
+    document.getElementById("minutes").value;
+
+    let duration =
+    hours + " Hr " + minutes + " Min";
+
+    if(name==="" || code==="" ||
+    date==="" || hours==="" || minutes===""){
 
         alert("Please fill all fields");
         return;
     }
 
-    fetch(SCRIPT_URL,{
+    fetch(SCRIPT_URL, {
 
         method:"POST",
 
@@ -326,43 +497,62 @@ function addOvertime(){
 
     })
 
-    .then(res=>res.json())
+    .then(response => response.json())
 
-    .then(data=>{
+    .then(data => {
 
-        document.getElementById("entryMessage").innerHTML =
-            "Overtime Added Successfully";
+        if(data.status === "success"){
 
-        let tbody = document.querySelector("#entryTable tbody");
+            document.getElementById("entryMessage")
+            .innerHTML =
+            "✅ Overtime Added Successfully";
 
-        let row = `
+            document.getElementById("entryMessage")
+            .className = "success";
+
+            let tbody =
+            document.querySelector("#entryTable tbody");
+
+            tbody.innerHTML += `
             <tr>
                 <td>${name}</td>
                 <td>${code}</td>
                 <td>${date}</td>
                 <td>${duration}</td>
             </tr>
-        `;
+            `;
 
-        tbody.innerHTML += row;
+            document.getElementById("empName").value="";
+            document.getElementById("empCode").value="";
+            document.getElementById("otDate").value="";
+            document.getElementById("hours").value="";
+            document.getElementById("minutes").value="";
 
-        document.getElementById("empName").value="";
-        document.getElementById("empCode").value="";
-        document.getElementById("otDate").value="";
-        document.getElementById("hours").value="";
-        document.getElementById("minutes").value="";
+        } else {
+
+            alert("Error: " + data.message);
+        }
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+
+        alert("Failed to connect to server");
     });
 
 }
 
 function checkPassword(){
 
-    let pass = document.getElementById("password").value;
+    let pass =
+    document.getElementById("password").value;
 
     if(pass === DISPLAY_PASSWORD){
 
         document.getElementById("displaySection")
-            .classList.remove("hidden");
+        .classList.remove("hidden");
 
     }else{
 
@@ -372,48 +562,80 @@ function checkPassword(){
 
 function loadData(){
 
-    let fromDate = document.getElementById("fromDate").value;
-    let toDate = document.getElementById("toDate").value;
+    let fromDate =
+    document.getElementById("fromDate").value;
 
-    fetch(`${SCRIPT_URL}?action=get&from=${fromDate}&to=${toDate}`)
+    let toDate =
+    document.getElementById("toDate").value;
 
-    .then(res=>res.json())
+    if(fromDate === "" || toDate === ""){
+        alert("Please select both dates");
+        return;
+    }
 
-    .then(data=>{
+    fetch(`${SCRIPT_URL}?from=${fromDate}&to=${toDate}`)
+
+    .then(response => response.json())
+
+    .then(data => {
 
         data.sort((a,b)=>
-            a.name.localeCompare(b.name)
-        );
+        a.name.localeCompare(b.name));
 
-        let tbody = document.querySelector("#displayTable tbody");
+        let tbody =
+        document.querySelector("#displayTable tbody");
 
         tbody.innerHTML = "";
 
-        data.forEach(item=>{
+        if(data.length === 0){
+
+            tbody.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    No records found
+                </td>
+            </tr>
+            `;
+
+            return;
+        }
+
+        data.forEach(item => {
 
             tbody.innerHTML += `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.code}</td>
-                    <td>${item.date}</td>
-                    <td>${item.duration}</td>
-                </tr>
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.code}</td>
+                <td>${item.date}</td>
+                <td>${item.duration}</td>
+            </tr>
             `;
         });
 
+    })
+
+    .catch(error => {
+
+        console.log(error);
+
+        alert("Error loading data");
     });
 
 }
 
 function exportTableToExcel(){
 
-    let table = document.getElementById("displayTable");
+    let table =
+    document.getElementById("displayTable");
 
     let html = table.outerHTML;
 
-    let url = 'data:application/vnd.ms-excel,' + escape(html);
+    let url =
+    'data:application/vnd.ms-excel,' +
+    escape(html);
 
-    let link = document.createElement("a");
+    let link =
+    document.createElement("a");
 
     link.href = url;
 
